@@ -6,7 +6,6 @@ This project provides a bot with various features for managing roles, points, an
     <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=5865f2&logoColor=white&labelColor=&style=for-the-badge" height="60" width="210" alt="discord logo"  />
   </a>
 </div>
-###
 
 
 ## Public Commands
