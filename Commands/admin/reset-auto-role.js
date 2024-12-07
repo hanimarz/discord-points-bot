@@ -1,6 +1,6 @@
 module.exports = {
      name: "reset-auto-role",
-     description: `Remove auto role`,
+     description: `clear all auto-role configurations.`,
      aliases: [],
      adminRole: true,
      owners: true,
