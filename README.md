@@ -6,8 +6,6 @@ This project provides a bot with various features for managing roles, points, an
     <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=5865f2&logoColor=white&labelColor=&style=for-the-badge" height="60" width="210" alt="discord logo"  />
   </a>
 </div>
-
-
 ###
 
 
@@ -15,6 +13,13 @@ This project provides a bot with various features for managing roles, points, an
 These commands are accessible to all users.
 
 * `/rank` Display your current rank.
+
+# Rank
+<div align="center">
+  <a href="https://discord.gg/jgh78KPbzc" target="_blank">
+    <img src="https://github.com/user-attachments/assets/965d574a-5193-4772-b4c3-5f8535fd51b5" alt="logo"  />
+  </a>
+</div>
 
 * `/top` Display the general leaderboard.
 
@@ -26,6 +31,13 @@ These commands are accessible to all users.
 These commands are restricted to admins.
 
 * `/auto-role` Assign roles to be granted automatically when users reach a level.
+
+# Level
+<div align="center">
+  <a href="https://discord.gg/jgh78KPbzc" target="_blank">
+    <img src="https://github.com/user-attachments/assets/8bbad7bd-6610-45d2-94cc-e6f981f41ca9" alt="logo"  />
+  </a>
+</div>
 
 * `/level-channel` Setup the channel for level up messages.
 
@@ -63,3 +75,5 @@ The configuration for this bot is stored in JSON format. Below is the structure:
     "adminRole": ["", "", ""],
     "owners": ["", "", ""]
 }
+```
+
