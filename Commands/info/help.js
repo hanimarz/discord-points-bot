@@ -10,7 +10,7 @@ module.exports = {
     async execute(client, message, args) {
         try {
             const globPromise = promisify(glob);
-            const commandFiles = await globPromise(`${process.cwd()}/commands/public/**/*.js`);
+            const commandFiles = await globPromise(`${process.cwd()}/Commands/public/**/*.js`);
 
             let embed = new EmbedBuilder()
                 .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
