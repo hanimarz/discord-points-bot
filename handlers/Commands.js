@@ -6,10 +6,10 @@ table.setHeading('Command', 'Load Status');
 module.exports = (client) => {
     try {
         let commandArray = [];
-        fs.readdirSync('./commands').forEach(async (folder) => {
-            const commandFiles = fs.readdirSync(`./commands/${folder}`).filter(file => file.endsWith('.js'));
+        fs.readdirSync('./Commands').forEach(async (folder) => {
+            const commandFiles = fs.readdirSync(`./Commands/${folder}`).filter(file => file.endsWith('.js'));
             for (const file of commandFiles) {
-                let command = require(`../commands/${folder}/${file}`);
+                let command = require(`../Commands/${folder}/${file}`);
                 if (command.name) {
                     client.commands.set(command.name, command);
                     table.addRow(file, '✅');
