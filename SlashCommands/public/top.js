@@ -1,3 +1,5 @@
+const canvafy = require("../../pkg/canvafy/index");
+
 module.exports = {
      name: "top",
      description: "Show the top users with the most points.",

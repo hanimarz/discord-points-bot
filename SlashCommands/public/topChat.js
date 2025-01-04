@@ -1,3 +1,5 @@
+const canvafy = require("../../pkg/canvafy/index");
+
 module.exports = {
      name: "top-chat",
      description: "Show the top chat users with the most points.",

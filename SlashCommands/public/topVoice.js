@@ -1,3 +1,5 @@
+const canvafy = require("../../pkg/canvafy/index");
+
 module.exports = {
      name: "top-voice",
      description: "Show the top voice users with the most points.",
