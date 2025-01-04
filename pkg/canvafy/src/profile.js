@@ -4,6 +4,7 @@ const { createCanvas, loadImage, GlobalFonts } = require('@napi-rs/canvas');
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const {otherImgs,otherBadges,nitroBadges,statusImgs,luppux} = require('../assets/images/profileFunc.json');
 const badgesOrder = require('../plugins/badgesOrder.json');
+const path = require('path');
 
 /**
  * @typedef {object} Profile
@@ -14,7 +15,10 @@ const badgesOrder = require('../plugins/badgesOrder.json');
 
 module.exports = class Profile {
     constructor(options) {
-        this.font = { name: options?.font?.name ?? "Amiri", path: options?.font?.path };
+      this.font = {
+        name: options?.font?.name ?? "Cairo",
+        path: options?.font?.path ?? path.join(__dirname, '../assets/fonts/Cairo/Cairo-Medium.ttf')
+      };
         this.userid = "928259219038302258",
         this.activity = {};
         this.border;

@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const { createCanvas, loadImage, GlobalFonts } = require('@napi-rs/canvas');
+const path = require('path');
 
 /**
  * @typedef {object} Top
@@ -10,7 +11,10 @@ const { createCanvas, loadImage, GlobalFonts } = require('@napi-rs/canvas');
  */
 module.exports = class Top {
   constructor(options) {
-    this.font = { name: options?.font?.name ?? "Amiri", path: options?.font?.path };
+    this.font = {
+      name: options?.font?.name ?? "Cairo",
+      path: options?.font?.path ?? path.join(__dirname, '../assets/fonts/Cairo/Cairo-Medium.ttf')
+    };
     this.usersData = options?.usersData || [{ top: 1, avatar: "https://i.pinimg.com/736x/c6/a8/5f/c6a85f7dbcbf367d5dc1baa2aaa19a73.jpg", tag: "Beş#0005", score: 5 }, { top: 2, avatar: "https://i.pinimg.com/736x/c6/a8/5f/c6a85f7dbcbf367d5dc1baa2aaa19a73.jpg", tag: "Beş#0005", score: 5 }, { top: 3, avatar: "https://i.pinimg.com/736x/c6/a8/5f/c6a85f7dbcbf367d5dc1baa2aaa19a73.jpg", tag: "Beş#0005", score: 5 }];
     this.background = {
       type: "none",

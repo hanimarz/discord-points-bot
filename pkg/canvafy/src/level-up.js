@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const { createCanvas, loadImage, GlobalFonts } = require('@napi-rs/canvas');
+const path = require('path');
 
 
 /**
@@ -12,7 +13,10 @@ const { createCanvas, loadImage, GlobalFonts } = require('@napi-rs/canvas');
 
 module.exports = class LevelUp {
   constructor(options) {
-    this.font = { name: options?.font?.name ?? "Amiri", path: options?.font?.path };
+    this.font = {
+      name: options?.font?.name ?? "Cairo",
+      path: options?.font?.path ?? path.join(__dirname, '../assets/fonts/Cairo/Cairo-Medium.ttf')
+    };
     this.avatar = "https://cdn.discordapp.com/embed/avatars/0.png";
     this.background = {
       type: "color",

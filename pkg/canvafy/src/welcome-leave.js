@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const { createCanvas, loadImage, GlobalFonts } = require('@napi-rs/canvas');
-
+const path = require('path');
 
 /**
  * @typedef {object} WelcomeLeave
@@ -12,7 +12,10 @@ const { createCanvas, loadImage, GlobalFonts } = require('@napi-rs/canvas');
  */
 module.exports = class WelcomeLeave {
   constructor(options) {
-    this.font = { name: options?.font?.name ?? "Amiri", path: options?.font?.path };
+    this.font = {
+      name: options?.font?.name ?? "Cairo",
+      path: options?.font?.path ?? path.join(__dirname, '../assets/fonts/Cairo/Cairo-Medium.ttf')
+    };
     this.avatar = "https://cdn.discordapp.com/embed/avatars/0.png";
     this.background = {
       type: "color",
@@ -34,12 +37,12 @@ module.exports = class WelcomeLeave {
   }
 
 
-    /**
-     * .setAvatar
-     * @param {string} image Set User Avatar URL
-     * @returns {WelcomeLeave}
-     * @example setAvatar("https://someone-image.png")
-     */
+  /**
+   * .setAvatar
+   * @param {string} image Set User Avatar URL
+   * @returns {WelcomeLeave}
+   * @example setAvatar("https://someone-image.png")
+   */
   setAvatar(image) {
     this.avatar = image;
     return this;
@@ -141,13 +144,13 @@ module.exports = class WelcomeLeave {
 
     return this;
   }
-                                         
-    /**
-     * .setOverlayOpacity
-     * @param {number} opacity must be between 0 and 1
-     * @returns {WelcomeLeave}
-     * @example setOverlayOpacity(0.6)
-     */
+
+  /**
+   * .setOverlayOpacity
+   * @param {number} opacity must be between 0 and 1
+   * @returns {WelcomeLeave}
+   * @example setOverlayOpacity(0.6)
+   */
   setOverlayOpacity(opacity = 0) {
     if (opacity) {
       if (opacity >= 0 && opacity <= 1) {
@@ -183,28 +186,28 @@ module.exports = class WelcomeLeave {
   }
 
   async build() {
-    if (this.font.path) GlobalFonts.registerFromPath(this.font.path,this.font.name);
+    if (this.font.path) GlobalFonts.registerFromPath(this.font.path, this.font.name);
 
     const canvas = createCanvas(700, 350);
     const ctx = canvas.getContext("2d");
-    if(this.border){
-    ctx.beginPath();
-    ctx.lineWidth = 8;
-    ctx.strokeStyle = this.border;
-    ctx.moveTo(55, 15);
-    ctx.lineTo(canvas.width - 55, 15);
-    ctx.quadraticCurveTo(canvas.width - 20, 20, canvas.width - 15, 55);
-    ctx.lineTo(canvas.width - 15, canvas.height - 55);
-    ctx.quadraticCurveTo(canvas.width - 20, canvas.height - 20, canvas.width - 55, canvas.height - 15);
-    ctx.lineTo(55, canvas.height - 15);
-    ctx.quadraticCurveTo(20, canvas.height - 20, 15, canvas.height - 55);
-    ctx.lineTo(15, 55);
-    ctx.quadraticCurveTo(20, 20, 55, 15);
-    ctx.lineTo(56, 15);
-    ctx.stroke();
-    ctx.closePath();
+    if (this.border) {
+      ctx.beginPath();
+      ctx.lineWidth = 8;
+      ctx.strokeStyle = this.border;
+      ctx.moveTo(55, 15);
+      ctx.lineTo(canvas.width - 55, 15);
+      ctx.quadraticCurveTo(canvas.width - 20, 20, canvas.width - 15, 55);
+      ctx.lineTo(canvas.width - 15, canvas.height - 55);
+      ctx.quadraticCurveTo(canvas.width - 20, canvas.height - 20, canvas.width - 55, canvas.height - 15);
+      ctx.lineTo(55, canvas.height - 15);
+      ctx.quadraticCurveTo(20, canvas.height - 20, 15, canvas.height - 55);
+      ctx.lineTo(15, 55);
+      ctx.quadraticCurveTo(20, 20, 55, 15);
+      ctx.lineTo(56, 15);
+      ctx.stroke();
+      ctx.closePath();
     }
-    
+
     ctx.beginPath();
     ctx.moveTo(65, 25);
     ctx.lineTo(canvas.width - 65, 25);
@@ -292,7 +295,7 @@ module.exports = class WelcomeLeave {
     ctx.beginPath();
     ctx.arc(canvas.width / 2, 125, 60, 0, Math.PI * 2);
     ctx.closePath();
-    ctx.clip(); 
+    ctx.clip();
 
     try {
       ctx.drawImage(await loadImage(this.avatar), canvas.width / 2 - 60, 65, 120, 120);

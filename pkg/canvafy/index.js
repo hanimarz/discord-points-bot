@@ -5,7 +5,8 @@ const path = require("path");
 
 const { GlobalFonts } = require('@napi-rs/canvas');
 
-GlobalFonts.registerFromPath(`${__dirname}/assets/fonts/Amiri/Amiri-Regular.ttf`,"Amiri")
+let fontPath = path.join(__dirname, '../canvafy/assets/fonts/Cairo/Cairo-Medium.ttf');
+GlobalFonts.registerFromPath(fontPath, "Cairo");
 
 const { emitWarning } = process;
 process.emitWarning = (warning, ...args) => {
@@ -16,9 +17,6 @@ process.emitWarning = (warning, ...args) => {
 
 
 module.exports = {
-  Image: {
-    gay: require("./src/gay")
-  },
   Rank: require("./src/rank"),
   Util: require("./plugins/Util"),
   WelcomeLeave: require("./src/welcome-leave"),

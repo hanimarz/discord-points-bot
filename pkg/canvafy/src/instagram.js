@@ -12,7 +12,10 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
  */
 module.exports = class Instagram {
   constructor(options) {
-    this.font = { name: options?.font?.name ?? "Amiri", path: options?.font?.path };
+    this.font = {
+      name: options?.font?.name ?? "Cairo",
+      path: options?.font?.path ?? path.join(__dirname, '../assets/fonts/Cairo/Cairo-Medium.ttf')
+    };
     this.avatar = "https://cdn.discordapp.com/avatars/928259219038302258/299ebac2bc13f5a8f44d2dd1f0c9f856.png?size=1024";
     this.verified = true;
     this.theme = "dark";
@@ -64,7 +67,7 @@ module.exports = class Instagram {
     return this;
   };
 
-   
+
   /**
    * .setPostDate
    * @param {number} date Set Post Date
@@ -74,10 +77,10 @@ module.exports = class Instagram {
    * @returns {Instagram}
    * @example setPostDate(Date.now() - 100000)
    */
-  setPostDate(date){
-  if(typeof date !== "number") throw new Error("Date must be a number type");
-  this.postDate = date;
-  return this;
+  setPostDate(date) {
+    if (typeof date !== "number") throw new Error("Date must be a number type");
+    this.postDate = date;
+    return this;
   };
 
   /**
@@ -89,8 +92,8 @@ module.exports = class Instagram {
    * @throws {Error} Saved must be a boolean
    * @returns {Instagram}
    */
-  setSaved(saved){
-    if(typeof saved !== "boolean") throw new Error("Saved must be a boolean type");
+  setSaved(saved) {
+    if (typeof saved !== "boolean") throw new Error("Saved must be a boolean type");
     this.isSaved = saved;
     return this;
   }
@@ -105,8 +108,8 @@ module.exports = class Instagram {
    * @throws {Error} Liked must be a boolean
    * @returns {Instagram}
    */
-  setLiked(liked){
-    if(typeof liked !== "boolean") throw new Error("Liked must be a boolean type");
+  setLiked(liked) {
+    if (typeof liked !== "boolean") throw new Error("Liked must be a boolean type");
     this.isLiked = liked;
     return this;
   }
@@ -118,11 +121,11 @@ module.exports = class Instagram {
    * @example setLikeCount(5)
    * @throws {Error} Count must be a number type
    */
-  setLike({ count, likeText }){
-  if(typeof count !== "number") throw new Error("Count must be a number type");
-  if(typeof likeText !== "string") throw new Error("Like text must be a string type");
-  this.like = { likeCount:count, likeText:likeText }
-  return this;
+  setLike({ count, likeText }) {
+    if (typeof count !== "number") throw new Error("Count must be a number type");
+    if (typeof likeText !== "string") throw new Error("Like text must be a string type");
+    this.like = { likeCount: count, likeText: likeText }
+    return this;
   };
 
   /**
@@ -131,7 +134,7 @@ module.exports = class Instagram {
    * @returns {Instagram}
    * @example setPostImage("https://someone-image.png")
    */
-  setPostImage(image){
+  setPostImage(image) {
     this.image = image;
     return this;
   };
@@ -171,7 +174,7 @@ module.exports = class Instagram {
     var canvas = createCanvas(1080, 1450);
     var ctx = canvas.getContext("2d");
 
-    if(this.user.username.trim().length < 1) throw new Error("Username must be at least 1 character long.");
+    if (this.user.username.trim().length < 1) throw new Error("Username must be at least 1 character long.");
 
     ctx.beginPath();
     ctx.fillStyle = this.theme == "light" ? "#fff" : "#000";
@@ -180,17 +183,17 @@ module.exports = class Instagram {
     ctx.fillStyle = this.theme == "light" ? "#000" : "#fff";
     ctx.textAlign = "left";
     ctx.font = "50px Chirp Bold";
-    ctx.fillText(`${this.user.username.length > 14 ? this.user.username.slice(0,14)+".." : this.user.username}`, 145, 105);
+    ctx.fillText(`${this.user.username.length > 14 ? this.user.username.slice(0, 14) + ".." : this.user.username}`, 145, 105);
 
     ctx.fillStyle = this.theme == "light" ? "#000" : "#fff";
     ctx.textAlign = "left";
     ctx.font = "45px Chirp Bold";
-    ctx.fillText(`${formatLikes(this.like.likeCount)} ${this.like.likeText.length > 10 ? this.like.likeText.slice(0,10)+"..": this.like.likeText}`,50, canvas.height - 120);
+    ctx.fillText(`${formatLikes(this.like.likeCount)} ${this.like.likeText.length > 10 ? this.like.likeText.slice(0, 10) + ".." : this.like.likeText}`, 50, canvas.height - 120);
 
     ctx.fillStyle = "#afafaf";
     ctx.textAlign = "left";
     ctx.font = "30px Chirp Bold";
-    ctx.fillText(`${timeAgo(this.postDate)}`,50, canvas.height - 65);
+    ctx.fillText(`${timeAgo(this.postDate)}`, 50, canvas.height - 65);
 
 
     if (this.verified === true) {
@@ -208,7 +211,7 @@ module.exports = class Instagram {
       };
 
       ctx.font = "35px Chirp Bold";
-      var textLength = ctx.measureText(this.user.username.length > 14 ? this.user.username.slice(0,14)+".." : this.user.username).width;
+      var textLength = ctx.measureText(this.user.username.length > 14 ? this.user.username.slice(0, 14) + ".." : this.user.username).width;
       ctx.drawImage(await loadImage(`${__dirname}/../assets/images/twitter-verified.png`), (this.user.username.length < 8 ? (textLength + 200) : textLengthBlank[this.user.username.length > 14 ? 16 : this.user.username.length] + textLength), 60, 60, 60);
     }
 
@@ -219,10 +222,10 @@ module.exports = class Instagram {
 
 
     try {
-      if(this.story) {
+      if (this.story) {
         ctx.drawImage(await loadImage(`${__dirname}/../assets/images/instagram-story-frame.png`), 7.5, 14, 140, 140);
       }
-      if(this.isLiked) {
+      if (this.isLiked) {
         ctx.drawImage(await loadImage(`${__dirname}/../assets/images/instagram-liked.png`), 40, canvas.height - 270, 80, 80);
       } else {
         ctx.drawImage(await loadImage(`${__dirname}/../assets/images/instagram-like-${this.theme == "light" ? "dark" : "light"}.png`), 40, canvas.height - 270, 80, 80);
@@ -233,10 +236,10 @@ module.exports = class Instagram {
 
       ctx.drawImage(await loadImage(`${__dirname}/../assets/images/instagram-other-${this.theme == "light" ? "dark" : "light"}.png`), canvas.width - 110, 60, 80, 80);
 
-      if(this.isSaved) {
-      ctx.drawImage(await loadImage(`${__dirname}/../assets/images/instagram-save-${this.theme == "light" ? "dark" : "light"}-filled.png`), canvas.width - 150, canvas.height - 270, 80, 80);
+      if (this.isSaved) {
+        ctx.drawImage(await loadImage(`${__dirname}/../assets/images/instagram-save-${this.theme == "light" ? "dark" : "light"}-filled.png`), canvas.width - 150, canvas.height - 270, 80, 80);
       } else {
-      ctx.drawImage(await loadImage(`${__dirname}/../assets/images/instagram-save-${this.theme == "light" ? "dark" : "light"}.png`), canvas.width - 150, canvas.height - 270, 80, 80);
+        ctx.drawImage(await loadImage(`${__dirname}/../assets/images/instagram-save-${this.theme == "light" ? "dark" : "light"}.png`), canvas.width - 150, canvas.height - 270, 80, 80);
       }
 
     } catch (err) {
@@ -264,9 +267,9 @@ module.exports = class Instagram {
 
 
 
-function writeComment(ctx,comment,theme){
+function writeComment(ctx, comment, theme) {
   comment = comment.length > 2490 ? comment.slice(0, 2490) + "..." : comment;
-  if(!comment.includes(" ")) {
+  if (!comment.includes(" ")) {
     comment.length > 57 ? comment = comment.slice(0, 57) + "..." : comment;
     ctx.fillStyle = theme == "light" ? "#000" : "#fff";
     ctx.font = "25px Chirp";
@@ -313,20 +316,20 @@ function timeAgo(timestamp) {
   const seconds = Math.floor((now - past) / 1000);
 
   const intervals = {
-      year: 31536000,
-      month: 2592000,
-      week: 604800,
-      day: 86400,
-      hour: 3600,
-      minute: 60,
-      second: 1
+    year: 31536000,
+    month: 2592000,
+    week: 604800,
+    day: 86400,
+    hour: 3600,
+    minute: 60,
+    second: 1
   };
 
   for (const unit in intervals) {
-      const interval = Math.floor(seconds / intervals[unit]);
-      if (interval >= 1) {
-          return `${interval} ${unit}${interval > 1 ? 's' : ''} ago`;
-      }
+    const interval = Math.floor(seconds / intervals[unit]);
+    if (interval >= 1) {
+      return `${interval} ${unit}${interval > 1 ? 's' : ''} ago`;
+    }
   }
 
   return 'just now';
