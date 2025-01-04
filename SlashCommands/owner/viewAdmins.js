@@ -8,14 +8,14 @@ module.exports = {
      /**
       * 
       * @param {import("discord.js").Client} client
-      * @param {import("discord.js").Message} message
+      * @param {import("discord.js").CommandInteraction} interaction
       * @param {String[]} args
       * @returns
       */
      async execute(client, interaction) {
           try {
 
-               let settingsData = await client.dbPoints.get(`database_${message.guild.id}..settings`);
+               let settingsData = await client.dbPoints.get(`database_${interaction.guild.id}..settings`);
 
                if (!settingsData) {
                     settingsData = {
@@ -28,24 +28,24 @@ module.exports = {
                let getAdmins = settingsData.admins || [];
 
                for (let i = 0; i < getRoles.length; i++) {
-                    getRoles[i] = message.guild.roles.cache.get(getRoles[i]);
+                    getRoles[i] = interaction.guild.roles.cache.get(getRoles[i]);
                     if (!getRoles[i]) {
-                         await client.dbPoints.pull(`database_${message.guild.id}..settings..roles`, getRoles[i].id);
+                         await client.dbPoints.pull(`database_${interaction.guild.id}..settings..roles`, getRoles[i].id);
                     }
                }
 
                for (let i = 0; i < getAdmins.length; i++) {
-                    getAdmins[i] = message.guild.members.cache.get(getAdmins[i]);
+                    getAdmins[i] = interaction.guild.members.cache.get(getAdmins[i]);
                     if (!getAdmins[i]) {
-                         await client.dbPoints.pull(`database_${message.guild.id}..settings..admins`, getAdmins[i].id);
+                         await client.dbPoints.pull(`database_${interaction.guild.id}..settings..admins`, getAdmins[i].id);
                     }
                }
 
                let embed = new EmbedBuilder()
                     .setTitle("Admins and Roles")
                     .setDescription("View all admins and roles added to the bot")
-                    .setFooter({ text: `Requested by ${message.author.tag}`, iconURL: message.author.displayAvatarURL({ dynamic: true }) })
-                    .setThumbnail(message.guild.iconURL({ dynamic: true }))
+                    .setFooter({ text: `Requested by ${interaction.user.tag}`, iconURL: interaction.user.displayAvatarURL({ dynamic: true }) })
+                    .setThumbnail(interaction.guild.iconURL({ dynamic: true }))
                     .setTimestamp()
                     .setColor("#161616");
 
@@ -61,7 +61,7 @@ module.exports = {
                     embed.addFields({ name: "Admins", value: getAdmins.join("\n"), inline: false });
                }
 
-               return message.reply({ embeds: [embed] });
+               return interaction.reply({ embeds: [embed] });
 
           } catch (err) {
                console.log(err)
