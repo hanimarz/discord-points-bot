@@ -1,6 +1,6 @@
 {
   "name": "points",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "get support quickly from: https://discord.gg/devxor or https://discord.gg/jgh78KPbzc",
   "main": "index.js",
   "scripts": {
