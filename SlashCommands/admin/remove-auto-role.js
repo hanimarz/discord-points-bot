@@ -25,20 +25,26 @@ module.exports = {
       */
      async execute(client, interaction) {
           try {
-
                let role = interaction.options.getRole('role');
                let level = interaction.options.getInteger('level');
 
-               if (!level) return interaction.reply({ content: `Please provide a level`, ephemeral: true })
+               if (!level) return interaction.reply({ content: `Please provide a level`, ephemeral: true });
                if (isNaN(level) || level < 1 || level > 100) return interaction.reply({ content: `Please provide a valid number between 1 and 100`, ephemeral: true });
 
                let getAutoRole = await client.dbPoints.get(`database_${interaction.guild.id}..settings..autoRole`);
-               if (getAutoRole) {
-                    if (!getAutoRole[level].includes(role.id)) {
-                         return interaction.reply({
-                              content: `This role is not in auto role`
-                         });
-                    }
+
+               if (!getAutoRole || !getAutoRole[level]) {
+                    return interaction.reply({
+                         content: `No auto role found for level ${level}`,
+                         ephemeral: true
+                    });
+               }
+
+               if (!getAutoRole[level].includes(role.id)) {
+                    return interaction.reply({
+                         content: `This role is not in the auto role for level ${level}`,
+                         ephemeral: true
+                    });
                }
 
                let getAutoRoleArray = getAutoRole[level];
@@ -46,10 +52,12 @@ module.exports = {
                getAutoRoleArray.splice(index, 1);
 
                await client.dbPoints.set(`database_${interaction.guild.id}..settings..autoRole`, getAutoRole);
-               interaction.reply({ content: `Successfully remove role in auto role`, ephemeral: true });
+
+               interaction.reply({ content: `Successfully removed role from auto role for level ${level}`, ephemeral: true });
 
           } catch (err) {
-               console.log(err)
+               console.error(err);
+               interaction.reply({ content: `An error occurred while trying to remove the role from auto role`, ephemeral: true });
           }
      },
 };
