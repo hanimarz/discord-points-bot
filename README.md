@@ -68,10 +68,10 @@ The configuration for this bot is stored in JSON format. Below is the structure:
 
 ```json
 {
-    "token": "",
-    "clientId": "",
-    "prefix": "",
-    "adminRole": ["", "", ""],
+    "token": "MTMyNzA2MDE5MzE1ODIzODMxOQ.GFYrz9.-uA-XB2BHdDqqh8P5ROCtbLJGhRyZtkLk6AFdE",
+    "clientId": "1327060193158238319",
+    "prefix": "-",
+    "adminRole": ["1328542093676904478", "", ""],
     "owners": ["", "", ""]
 }
 ```
